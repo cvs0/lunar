@@ -129,7 +129,9 @@ class Aimbot:
     def interpolate_coordinates_from_center(absolute_coordinates, scale):
         diff_x = (absolute_coordinates[0] - 960) * scale/Aimbot.pixel_increment
         diff_y = (absolute_coordinates[1] - 540) * scale/Aimbot.pixel_increment
-        length = int(math.dist((0,0), (diff_x, diff_y)))
+        dx = diff_x - 0
+        dy = diff_y - 0
+        length = int(math.sqrt(dx ** 2 + dy ** 2))
         if length == 0: return
         unit_x = (diff_x/length) * Aimbot.pixel_increment
         unit_y = (diff_y/length) * Aimbot.pixel_increment
@@ -170,7 +172,9 @@ class Aimbot:
                     own_player = x1 < 15 or (x1 < self.box_constant/5 and y2 > self.box_constant/1.2) #helps ensure that your own player is not regarded as a valid detection
 
                     #calculate the distance between each detection and the crosshair at (self.box_constant/2, self.box_constant/2)
-                    crosshair_dist = math.dist((relative_head_X, relative_head_Y), (self.box_constant/2, self.box_constant/2))
+                    dx = relative_head_X - self.box_constant / 2
+                    dy = relative_head_Y - self.box_constant / 2
+                    crosshair_dist = math.sqrt(dx ** 2 + dy ** 2)
 
                     if not least_crosshair_dist: least_crosshair_dist = crosshair_dist #initalize least crosshair distance variable first iteration
 
